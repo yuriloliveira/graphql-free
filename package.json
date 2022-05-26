@@ -1,0 +1,34 @@
+{
+  "name": "apollo-server-lambda-demo",
+  "version": "1.0.0",
+  "description": "Demo of apollo-server-lambda to run a serverless graphql API",
+  "main": "index.js",
+  "scripts": {
+    "start": "sam local start-api --warm-containers EAGER --docker-network graphql-free",
+    "create-local-table:goals": "aws --endpoint-url=http://localhost:4566 dynamodb create-table --cli-input-json file://src/dynamodb/goalTable.json",
+    "create-table:goals": "aws dynamodb create-table --cli-input-json file://src/dynamodb/goalTable.json",
+    "setup-dynamodb": "docker-compose -f docker-compose-localstack.yaml up -d && yarn create-local-table:goals",
+    "cf:package": "aws cloudformation package --template-file template-prod.yaml --output-template-file  cf-template.yaml --s3-bucket waes-techtalk-graphql-free-cf-template",
+    "cf:deploy": "aws cloudformation deploy --template-file cf-template.yaml --stack-name graphql-free-prod --capabilities CAPABILITY_IAM",
+    "deploy-api": "yarn cf:package && yarn cf:deploy"
+  },
+  "keywords": [
+    "graphql",
+    "free",
+    "serverless",
+    "aws",
+    "lambda"
+  ],
+  "author": "Yuri Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.99.0",
+    "@aws-sdk/lib-dynamodb": "^3.99.0",
+    "apollo-server-lambda": "^3.6.7",
+    "graphql": "^16.3.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "k6": "^0.0.0"
+  }
+}

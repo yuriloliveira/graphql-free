@@ -1,0 +1,15 @@
+mutation {
+  addGoal(
+    title: "Playstation 5",
+    targetAmount: 500,
+  	description: "When the time comes, the money has to be saved",
+    targetDate: "2022-08-18"
+  ) {
+    id,
+    title,
+    savedAmount,
+    targetAmount,
+    description,
+    targetDate
+  }
+}

@@ -1,0 +1,10 @@
+{
+  goals {
+    id,
+    title,
+    savedAmount,
+    targetAmount,
+    description,
+    targetDate
+  }
+}
