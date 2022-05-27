@@ -18,7 +18,7 @@ const typeDefs = gql`
     goals: [Goal!]!
   }
   type Mutation {
-    addGoal(title: String!, savedAmount: Float, targetAmount: Float, description: String, targetDate: String): Goal
+    addGoal(id: String, title: String!, savedAmount: Float, targetAmount: Float, description: String, targetDate: String): Goal
   }
 `;
 
@@ -34,7 +34,7 @@ const resolvers = {
   },
   Mutation: {
     addGoal: async (_, goal) => {
-      const goalToBeCreated = { id: uuid(), ...goal };
+      const goalToBeCreated = { id: goal?.id ?? uuid(), ...goal };
       return goalClient.createGoal(goalToBeCreated);
     }
   }
