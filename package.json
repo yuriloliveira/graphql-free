@@ -4,13 +4,13 @@
   "description": "Demo of apollo-server-lambda to run a serverless graphql API",
   "main": "index.js",
   "scripts": {
-    "start": "sam local start-api --warm-containers EAGER --docker-network graphql-free",
+    "start:graphql": "sam local start-api --warm-containers EAGER --docker-network graphql-free",
     "create-local-table:goals": "aws --endpoint-url=http://localhost:4566 --region=us-east-1 dynamodb create-table --cli-input-json file://src/dynamodb/goalTable.json",
     "create-table:goals": "aws dynamodb create-table --cli-input-json file://src/dynamodb/goalTable.json",
     "setup-dynamodb": "docker-compose -f docker-compose-localstack.yaml up -d && sleep 2 && yarn create-local-table:goals",
     "cf:package": "aws cloudformation package --template-file template-prod.yaml --output-template-file  cf-template.yaml --s3-bucket waes-techtalk-graphql-free-cf-template",
     "cf:deploy": "aws cloudformation deploy --template-file cf-template.yaml --stack-name graphql-free-prod --capabilities CAPABILITY_IAM",
-    "deploy-api": "yarn cf:package && yarn cf:deploy"
+    "deploy:graphql": "yarn cf:package && yarn cf:deploy"
   },
   "keywords": [
     "graphql",
