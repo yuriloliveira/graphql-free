@@ -1,5 +1,4 @@
 import { ApolloServer, gql } from 'apollo-server-lambda';
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { v4 as uuid } from "uuid";
 
 import { goalClient } from "./dynamodb/index.mjs";
@@ -18,7 +17,14 @@ const typeDefs = gql`
     goals: [Goal!]!
   }
   type Mutation {
-    addGoal(id: String, title: String!, savedAmount: Float, targetAmount: Float, description: String, targetDate: String): Goal
+    addGoal(
+      id: String,
+      title: String!,
+      savedAmount: Float,
+      targetAmount: Float,
+      description: String,
+      targetDate: String
+    ): Goal
   }
 `;
 
@@ -43,8 +49,6 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  introspection: true,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
 
 export const handler = server.createHandler();
