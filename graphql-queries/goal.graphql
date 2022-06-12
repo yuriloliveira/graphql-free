@@ -1,0 +1,9 @@
+{
+  goal(id: "goal-id") {
+    id,
+    title,
+    savedAmount,
+    targetAmount,
+    targetDate
+  }
+}

@@ -25,7 +25,7 @@ $ yarn start:graphql
 ## Deploying
 The deployment via cli uses CloudFormation. This means that, before deploying the API, it's necessary to create a S3 bucket that will hold the CloudFormation stack.
 ```shell
-$ aws s3 mb s3://waes-techtalk-graphql-free-cf-template
+$ aws s3 mb s3://graphql-free-cf-template
 ```
 The deployment happens in 2 steps: 
 1. **package**: Transforms the SAM template file into a CloudFormation template (*template-prod.yaml -> cf-template.yaml*)
@@ -42,7 +42,7 @@ Performance testing will be executed with [k6](https://k6.io/). Please follow th
 To run the test, use the following command:
 
 ```shell
-$ k6 run -e GRAPHQL_ENDPOINT=http://localhost:3000/graphql performance-k6.js --vus 2 --duration 30s
+$ k6 run -e GRAPHQL_ENDPOINT=<api-endpoint> -e GOAL_ID=<goal-id> performance-k6.js --vus 2 --duration 30s
 ```
 
 It runs the script `performance-k6.js` in endpoint `http://localhost:3000/graphql` with **2 virtuals users** for **30 seconds**.
